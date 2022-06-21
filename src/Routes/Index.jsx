@@ -17,7 +17,7 @@ import Admin from '../Pages/Admin';
 const Index = () => {
 return (
 <>
-  <Router basename="https://lighthearted-cat-250b5b.netlify.app">
+  <Router basename="/">
     <Navbar />
 
     <Routes>
