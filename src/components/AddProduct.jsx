@@ -1,17 +1,17 @@
 import React from "react";
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import Axios from "axios";
 
 const AddProduct = () => {
   const server = "https://eazymarketapi.herokuapp.com";
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const addProduct = async() => {
     let org = JSON.parse(localStorage.getItem("merchant"));
     let productImage = document.getElementById("image").files[0];
     let productname = document.getElementById("productname").value;
     let price = document.getElementById("price").value;
     let addBtn = document.getElementById("addBtn");
-    addBtn.innerHTML = "Adding...";
 
     var formData = new FormData();
     formData.append("name", productname);
@@ -19,18 +19,23 @@ const AddProduct = () => {
     formData.append("owner", org._id);
     formData.append("productImage", productImage, productImage.name);
 
-    const res = await Axios.post(`${server}/addProduct`, formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    try {
+      const res = await Axios.post(`${server}/addProduct`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
-    res.status === 200
-      ? alert("Product Added Successfully")
-      : alert("Product Not Added");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    toast.promise(addProduct, { pending: 'Please wait...', success: 'New product added!', error: 'Failed. please try again' })
 
-    addBtn.innerHTML = "Add Product";
   };
   return (
     <div>
+      <ToastContainer />
       <form
         className="flex flex-col mt-7"
         onSubmit={handleSubmit}

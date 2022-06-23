@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import Axios from "axios";
 import { useDispatch } from "react-redux";
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { addMerchant } from '../store/features/Merchants';
 
 const SignIn = () => {
@@ -27,7 +29,7 @@ const SignIn = () => {
 
 
     if (response.data) {
-      alert("Successfully logged in!");
+      toast.success('Authentication successful')
       // dispatch(addMerchant(response.data));
       localStorage.setItem("merchant", JSON.stringify(response.data));
       btn.innerHTML = '<span>Sign In</span>';
@@ -47,6 +49,7 @@ const SignIn = () => {
 
   return (
     <>
+      <ToastContainer />
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 border-b border-gray-700">
         <div className="max-w-md w-full space-y-8">
           <div>

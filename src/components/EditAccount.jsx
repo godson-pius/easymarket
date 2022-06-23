@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import Axios from "axios";
 
 const EditAccount = () => {
@@ -7,26 +9,19 @@ const EditAccount = () => {
   const [email, setEmail] = useState();
   const [address, setAddress] = useState();
 
-  const handleUpdate = async (e) => {
-    e.preventDefault();
+  const update = async() => {
     let merchant = JSON.parse(localStorage.getItem("merchant"));
-    const conf = confirm(
-      "Please confirm your details! We are proceeding to updating your account."
-    );
-    if (conf) {
-      const data = {
-        businessname,
-        email,
-        businessline,
-        address,
-      };
+    const data = {
+      businessname,
+      email,
+      businessline,
+      address,
+    };
 
-      const response = await Axios.patch(
-        `https://eazymarketapi.herokuapp.com/updateMerchant/${merchant?._id}`,
-        data
-      ).catch((err) => alert("Failed to update account. Please try again."));
-
-      alert("Account Updated successfully!");
+    try {
+      const response = await Axios.patch(`https://eazymarketapi.herokuapp.com/updateMerchant/${merchant?._id}`,
+          data
+      )
 
       // Set to empty strings to clear the form
       setBusinessname("");
@@ -34,11 +29,25 @@ const EditAccount = () => {
       setEmail("");
       setBusinessline("");
       document.getElementById("form").reset();
+    } catch (e) {
+      console.log(e)
+    }
+
+  }
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    const conf = confirm(
+      "Please confirm your details! We are proceeding to updating your account."
+    );
+    if (conf) {
+      toast.promise(update, { pending: 'Please wait...', success: 'Account updated!', error: 'Failed. please try again' })
     }
   };
 
   return (
     <div>
+      <ToastContainer />
       <form className="flex flex-col mt-7" onSubmit={handleUpdate}>
         <label className="ml-3 text-slate-600 text-sm bg-white absolute mt-[-10px] px-3">
           Business Name

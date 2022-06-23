@@ -3,6 +3,7 @@ import Banner from "../components/Banner";
 import { Tab } from "@headlessui/react";
 import AllProducts from '../components/AllProducts';
 import AllMerchants from '../components/AllMerchants';
+import PaidAdvert from "../components/PaidAdvert";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -43,7 +44,7 @@ const Admin = () => {
         id: 3,
         content: (
           <div>
-            <AllMerchants />
+            <PaidAdvert />
           </div>
         ),
       },

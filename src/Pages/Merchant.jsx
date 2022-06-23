@@ -14,6 +14,13 @@ const Merchant = () => {
 
   useEffect(() => {
     const merchant = localStorage.getItem("merchant");
+    if (!merchant) {
+      window.location.href = "/"
+    }
+  }, []);
+
+  useEffect(() => {
+    const merchant = localStorage.getItem("merchant");
     setCurrentMerchant(JSON.parse(merchant));
   }, []);
 

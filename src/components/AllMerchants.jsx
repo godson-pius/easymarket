@@ -24,9 +24,9 @@ const AllMerchants = () => {
             </span>
             </div>
       </div>
-      {merchants.map((merchant) => {
+      {merchants.map((merchant, index) => {
         return (
-          <div className="w-full flex flex-col">
+          <div key={index} className="w-full flex flex-col">
             <div className="bg-transparent border grid grid-cols-2 p-2 mb-3 font-black rounded-md text-center hover:text-black hover:bg-cyan-100 transition duration-500">
             <div>
               <h1>{merchant?.businessname}</h1>

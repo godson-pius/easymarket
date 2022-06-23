@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import Typed from "react-typed";
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import Axios from 'axios';
 
 const SignUp = () => {
@@ -14,27 +16,22 @@ const SignUp = () => {
   const [facebook, setFacebook] = useState("");
   const [address, setAddress] = useState("");
 
-  const handleSignUp = async (e) => {
-    e.preventDefault();
-    const conf = confirm("Please confirm your details! We are proceeding to register you.");
-    if (conf) {
-      const data = {
-        fullname,
-        businessname,
-        phone,
-        email,
-        password,
-        businessline,
-        instagram,
-        facebook,
-        address,
-      };
-  
-      const response = await Axios.post("https://eazymarketapi.herokuapp.com/addMerchant", data)
-      .catch(err => alert('Failed to register. Please try again.'))
-  
-      alert("Registered successfully!")
-  
+  const signUp = async() => {
+    const data = {
+      fullname,
+      businessname,
+      phone,
+      email,
+      password,
+      businessline,
+      instagram,
+      facebook,
+      address,
+    };
+
+    try {
+      await Axios.post("https://eazymarketapi.herokuapp.com/addMerchant", data)
+
       // Set to empty strings to clear the form
       setFullname("")
       setBusinessname("")
@@ -45,12 +42,25 @@ const SignUp = () => {
       setInstagram("")
       setFacebook("")
       document.getElementById("form").reset()
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    const conf = confirm("Please confirm your details! We are proceeding to register you.");
+    if (conf) {
+      //Toast Promise
+      toast.promise(signUp, { pending: 'Please wait...', success: 'Account created! You can now login', error: 'Failed. please try again' }, { autoClose: false })
     }
 
   };
 
   return (
     <>
+      <ToastContainer />
+
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 border-b border-gray-700">
         <div className="max-w-md w-full space-y-8">
           <div>
