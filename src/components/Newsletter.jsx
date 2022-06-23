@@ -3,15 +3,19 @@ import Axios from 'axios';
 
 function Newsletter() {
   const [email, setEmail] = useState()
+  const [text, setText] = useState("Notify Me")
 
   const handleSubmit = async() => {
+    setText("Please wait...")
     const data = {
       email
     }
     
     const response = await Axios.post('https://eazymarketapi.herokuapp.com/addSubscriber', data)
     .catch((err) => alert('Failed! Please try again'))
-    console.log(response.data)
+    
+    alert('You will start receiving mails from us!')
+    setText("Notify Me")
   }
 
   return (
@@ -34,7 +38,7 @@ function Newsletter() {
               placeholder="Enter email"
             />
             <button onClick={handleSubmit} className="bg-[#00df9a] w-[200px] rounded-md font-medium p-2 text-black my-2 mx-2">
-              Notify Me
+              { text }
             </button>
           </div>
           <p className='text-slate-400 text-sm'>We care about the protection of your data. <span className='text-[#00df9a]'>Read our privacy policy</span></p>
