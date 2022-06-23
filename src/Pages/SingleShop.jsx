@@ -64,7 +64,7 @@ const SingleShop = () => {
           <ReactWhatsapp
             className="bg-slate-200 mx-auto rounded-md my-4 font-medium p-2 text-black hover:bg-white transition duration-700 ease-in-out hover:scale-110 hover:-translate-y-1"
             number={ `${owner?.businessline}` }
-            message={`I saw your product (http://localhost:3001${ useLocation().pathname }) on Easy Market (www.worldbraintechnology.com). And i am interested in it!`}
+            message={`Hello, i saw your product (https://eazymarket.netlify.app${ useLocation().pathname }) on Easy Market. And i am interested in it! \n\n\n https://eazymarket.netlify.app`}
           >
             Drop message on Whatsapp
           </ReactWhatsapp>

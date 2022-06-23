@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import ReactWhatsapp from "react-whatsapp";
 import Axios from "axios";
 
 function Advert() {
@@ -32,9 +34,13 @@ function Advert() {
           <p>
             { advert?.description }
           </p>
-          <a href={`/product/${advert?._id}/${advert?.name}`} className="bg-black w-[200px] text-center rounded-md my-4 font-medium p-2 text-white hover:bg-[#00df9a] hover:text-black transition duration-700 ease-in-out hover:scale-110 hover:-translate-y-1">
+          <ReactWhatsapp
+            className="bg-black w-[200px] text-center rounded-md my-4 font-medium p-2 text-white hover:bg-[#00df9a] hover:text-black transition duration-700 ease-in-out hover:scale-110 hover:-translate-y-1"
+            number={ `${advert?.owner}` }
+            message={`Hello, i saw your paid product advert on Easy Market (https://eazymarket.netlify.app). And i am interested in it!`}
+          >
             Buy Now
-          </a>
+          </ReactWhatsapp>
         </div>
       </div>
     </div>
