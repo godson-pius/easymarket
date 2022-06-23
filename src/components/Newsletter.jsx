@@ -16,6 +16,7 @@ function Newsletter() {
     
     alert('You will start receiving mails from us!')
     setText("Notify Me")
+    setEmail("")
   }
 
   return (
